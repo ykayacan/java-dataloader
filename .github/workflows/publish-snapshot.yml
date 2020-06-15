@@ -18,14 +18,15 @@ jobs:
           java-version: 11
 
       - name: Setup build cache
-          uses: actions/cache@v2
-          with:
-            path: ~/.gradle/caches
-            key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-            restore-keys: ${{ runner.os }}-gradle-
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 
       - name: Test with Gradle
-          run: ./gradlew check
+        run: ./gradlew check
 
   publish:
     runs-on: ubuntu-latest
@@ -47,10 +48,10 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-
 
       - name: Upload Artifacts
-          env:
-            SONATYPE_NEXUS_USERNAME: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
-            SONATYPE_NEXUS_PASSWORD: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
-          run: ./gradlew publish
+        env:
+          SONATYPE_NEXUS_USERNAME: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
+          SONATYPE_NEXUS_PASSWORD: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
+        run: ./gradlew publish
 
   release-notes:
     runs-on: ubuntu-latest

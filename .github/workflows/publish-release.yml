@@ -18,20 +18,21 @@ jobs:
           java-version: 11
 
       - name: Setup build cache
-          uses: actions/cache@v2
-          with:
-            path: ~/.gradle/caches
-            key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-            restore-keys: ${{ runner.os }}-gradle-
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 
       - name: Upload Artifacts
-          env:
-            SONATYPE_NEXUS_USERNAME: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
-            SONATYPE_NEXUS_PASSWORD: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
-            # The GITHUB_REF tag comes in the format 'refs/tags/xxx'.
-            # So if we split on '/' and take the 3rd value, we can get the release name.
-            run: |
-              NEW_VERSION=$(echo "${GITHUB_REF}" | cut -d "/" -f3)
-              echo "New version: ${NEW_VERSION}"
-              echo "Github username: ${GITHUB_ACTOR}"
-              ./gradlew -PVERSION_NAME=${NEW_VERSION} publish
+        env:
+          SONATYPE_NEXUS_USERNAME: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
+          SONATYPE_NEXUS_PASSWORD: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
+          # The GITHUB_REF tag comes in the format 'refs/tags/xxx'.
+          # So if we split on '/' and take the 3rd value, we can get the release name.
+        run: |
+          NEW_VERSION=$(echo "${GITHUB_REF}" | cut -d "/" -f3)
+          echo "New version: ${NEW_VERSION}"
+          echo "Github username: ${GITHUB_ACTOR}"
+          ./gradlew -PVERSION_NAME=${NEW_VERSION} publish
