@@ -36,3 +36,9 @@ jobs:
           echo "New version: ${NEW_VERSION}"
           echo "Github username: ${GITHUB_ACTOR}"
           ./gradlew -PVERSION_NAME=${NEW_VERSION} publish
+
+      - name: Release
+        uses: marvinpinto/action-automatic-releases@v1.0.0
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
