@@ -1,6 +1,8 @@
 # Java DataLoader
 
+![Publish Release](https://github.com/ykayacan/java-dataloader/workflows/Publish%20Release/badge.svg)
 ![Publish Snapshot](https://github.com/ykayacan/java-dataloader/workflows/Publish%20Snapshot/badge.svg?branch=master)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/ykayacan/java-dataloader)
 ![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/io.github.ykayacan/java-dataloader?server=https%3A%2F%2Foss.sonatype.org)
 
 This small library is a Java 11 port of [GraphQL DataLoader](https://github.com/graphql/dataloader).
