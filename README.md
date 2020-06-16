@@ -49,7 +49,7 @@ To build from source use the Gradle wrapper:
 You can access the latest snapshot by adding the repository `https://oss.sonatype.org/content/repositories/snapshots` 
 to your build.
 
-Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/io/github/ykayacan/java-dataloader).
+Snapshots of the development version are available in [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/io/github/ykayacan/java-dataloader/).
 
 ## Usage
 
