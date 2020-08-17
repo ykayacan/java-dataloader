@@ -122,6 +122,7 @@ You can override batchSize by providing a `DataLoaderOptions` to `DataLoader.cre
 var options = DataLoaderOptions.<Long, Post>newBuilder()
     .maxBatchSize(2)
     .build();
+    
 DataLoader<Long, Post> dataLoader = DataLoader.create(batchLoader, options);
 
 dataLoader.load(1);
@@ -143,6 +144,7 @@ After .load() is called once with a given key, the resulting value cached to eli
 var options = DataLoaderOptions.<Long, Post>newBuilder()
     .maxBatchSize(2)
     .build();
+    
 DataLoader<Long, Post> dataLoader = DataLoader.create(batchLoader, options);
 
 dataLoader.load(1);
@@ -172,6 +174,7 @@ var options = DataLoaderOptions.<Long, Post>newBuilder()
     .maxBatchSize(2)
     .cacheMap(customCacheMap)
     .build();
+    
 DataLoader<Long, Post> dataLoader = DataLoader.create(batchLoader, options);
 ```
 
@@ -184,6 +187,7 @@ var options = DataLoaderOptions.<Long, Post>newBuilder()
     .maxBatchSize(2)
     .cacheKey(customCacheKey)
     .build();
+    
 DataLoader<Long, Post> dataLoader = DataLoader.create(batchLoader, options);
 ```
 
