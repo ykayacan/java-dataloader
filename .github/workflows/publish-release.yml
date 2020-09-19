@@ -3,29 +3,31 @@ name: Publish Release
 on:
   push:
     tags:
-      - '*' # Push events to matching v*, i.e. v1.0, v20.15.10
+      - '*'
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout latest code
+      - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Set up JDK 11
+      - name: Set up JDK
         uses: actions/setup-java@v1
         with:
           java-version: 11
 
-      - name: Setup build cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+      - name: Build
+        run: ./gradlew build
 
-      - name: Upload Artifacts
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: 'build/libs/*.jar'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy Artifacts
         env:
           ORG_GRADLE_PROJECT_SONATYPE_NEXUS_USERNAME: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
           ORG_GRADLE_PROJECT_SONATYPE_NEXUS_PASSWORD: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
@@ -38,9 +40,3 @@ jobs:
           echo "New version: ${NEW_VERSION}"
           echo "Github username: ${GITHUB_ACTOR}"
           ./gradlew -PVERSION_NAME=${NEW_VERSION} publish
-
-      - name: Release
-        uses: marvinpinto/action-automatic-releases@v1.0.0
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
